@@ -19,13 +19,18 @@ namespace afleveringlib
             _books.Add(new Book() { Id = 15, Title = "rnqiwe", Price = 102 });
 
         }
-        public IEnumerable<Book>Get(int? filprice = null, int? sortprice = null)
+        public IEnumerable<Book> Get(int? filprice = null, int? sortprice = null)
         {
-            List<Book> result = new List<Book>(_books);
+            IEnumerable<Book> result = new List<Book>(_books);
             if(filprice!= null)
             {
-                result = result.Where(a=> a.Price);
+                result = result.Where(a=> a.Price < filprice );
             }
+            if(sortprice!= null)
+            {
+                result = result.OrderBy(a => a.Price < sortprice);
+            }
+            return result;
         }
         public List<Book> GetallBook()
         {
